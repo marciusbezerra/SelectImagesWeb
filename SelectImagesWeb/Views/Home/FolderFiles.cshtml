@@ -1,0 +1,22 @@
+﻿@model IEnumerable<string>
+@{
+    ViewBag.Title = "Select Images";
+}
+
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            @if (!Model.Any())
+            {
+                <span>Nenhum arquivo encontrado</span>
+            }
+            else
+            {
+                foreach (var image in Model)
+                {
+                    <img style="width: 100%" src="~/Images/@image" alt="@image" />
+                }
+            }
+        </div>
+    </div>
+</div>

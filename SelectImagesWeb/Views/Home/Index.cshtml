@@ -1,0 +1,43 @@
+﻿@model  SelectImagesWeb.Models.SelectModel
+@{
+    ViewBag.Title = "Select Images";
+}
+
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.CurrentImage != null)
+            {
+                if (Model.CurrentImage.ToLower().EndsWith(".mp4"))
+                {
+                    <video style="width: 100%" controls ondblclick="javascript: $('#MoveToFolder').val('Deletar'); $('#formMain').submit();">
+                        <source src="~/Images/@Model.CurrentImage" type="video/mp4">
+                        Navegador não suporte VIDEO.
+                    </video>
+}
+                else
+                {
+                    <img style="width: 100%" src="~/Images/@Model.CurrentImage" alt="@Model.CurrentImage" ondblclick="javascript: $('#MoveToFolder').val('Deletar'); $('#formMain').submit();" />
+}
+            }
+            else
+            {
+                <span>Nenhum arquivo encontrado</span>}
+        </div>
+    </div>
+    <hr />
+    <footer>
+        @if (Model != null)
+        {
+            using (Html.BeginForm("Move", "Home", FormMethod.Post, new { id = "formMain" }))
+            {
+                @Html.HiddenFor(m => m.CurrentImage)
+                <span>@Model.ImageCount.ToString("D") </span>
+                @Html.TextBoxFor(m => m.MoveToFolder) <input type="submit" value="Criar e mover">foreach (var folder in Model.Folders)
+                {
+                    <span> | </span><a href="javascript: $('#MoveToFolder').val('@folder'); $('#formMain').submit()">@folder</a>
+}
+            }
+        }
+    </footer>
+</div>
